@@ -12,4 +12,13 @@ class Config:
     FLASK_APP = os.environ.get('FLASK_APP')
 
 
+class DevelopmentConfig(Config):
+    pass
 
+
+class TestingConfig(Config):
+    pass
+
+
+class ProductionConfig(Config):
+    DEBUG = False

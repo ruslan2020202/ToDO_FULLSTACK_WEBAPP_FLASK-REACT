@@ -1,7 +1,8 @@
 from flask_restful import Resource
+# from backend.resources.service import ToDoCore
 
 
-class Todo(Resource):
+class TodoTask(Resource):
     def get(self):
         pass
 
