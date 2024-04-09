@@ -23,3 +23,9 @@ class TodoList(db.Model):
         db.session.delete(self)
         db.session.commit()
 
+    def to_json_data(self):
+        return {
+            "id": self.id,
+            'name': self.name,
+            'status': self.status
+        }

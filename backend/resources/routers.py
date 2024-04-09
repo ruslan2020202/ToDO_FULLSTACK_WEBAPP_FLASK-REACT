@@ -1,10 +1,15 @@
 from flask_restful import Resource
-# from backend.resources.service import ToDoCore
+from backend.database.models import TodoList
+from flask import jsonify
 
 
 class TodoTask(Resource):
     def get(self):
-        pass
+        data = TodoList.query.all()
+        print(data)
+        json_data = list(map(lambda x: x.to_json_data(), data))
+        print(json_data)
+        return json_data, 200
 
     def post(self):
         pass
@@ -14,5 +19,3 @@ class TodoTask(Resource):
 
     def delete(self):
         pass
-
-
