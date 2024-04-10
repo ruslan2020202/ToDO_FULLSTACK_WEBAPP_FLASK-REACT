@@ -1,5 +1,5 @@
 from backend.database.models import db, TodoList
-from backend.run import app
+from backend.wsgi import app
 
 test_data = ['come home', 'cook food', 'to do work']
 
