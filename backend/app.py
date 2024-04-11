@@ -3,6 +3,7 @@ from flask_cors import CORS
 from flask_migrate import Migrate
 from backend.database.models import *
 from backend.resources.actions import register_actions
+from backend.static.swagger import *
 
 
 def create_app(config):
@@ -14,5 +15,6 @@ def create_app(config):
         db.create_all()
     Migrate(app, db)
     register_actions(app)
+    app.register_blueprint(SWAGGER_BLUEPRINT, url_prefix=SWAGGER_URL)
     return app
 
