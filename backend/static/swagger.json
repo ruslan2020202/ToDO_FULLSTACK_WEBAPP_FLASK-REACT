@@ -13,7 +13,7 @@
           "200": {
             "description": "List of tasks"
           },
-          "404": {
+          "204": {
             "description": "Tasks not found"
           }
         }
@@ -82,11 +82,14 @@
           }
         ],
         "responses": {
-          "201": {
+          "200": {
             "description": "Task status updated successfully"
           },
           "400": {
             "description": "Bad request"
+          },
+          "404": {
+            "description": "Task not found"
           }
         }
       },

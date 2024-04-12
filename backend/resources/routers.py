@@ -1,16 +1,16 @@
 from flask_restful import Resource
 from backend.database.models import TodoList
 from flask import jsonify, make_response, request
+from backend.schemas.sheme import todo_schema, todos_schema
 
 
 class TodoTask(Resource):
     def get(self):
         data = TodoList.query.all()
         if not data:
-            return make_response(jsonify({'error': 'not found tasks'}), 404)
+            return make_response(jsonify({'message': 'not found tasks'}), 204)
         else:
-            data = list(map(lambda x: x.to_json_data(), data))
-            return data, 200
+            return todos_schema.dump(data), 200
 
     def post(self):
         try:
@@ -24,23 +24,28 @@ class TodoTask(Resource):
 
 class TodoTasks(Resource):
     def get(self, id):
-        data = TodoList.query.get_or_404(id)
-        return data.to_json_data()
+        data = TodoList.query.get(id)
+        if not data:
+            return make_response(jsonify({'error': 'not found task'}), 404)
+        else:
+            return todo_schema.dump(data), 200
 
     def patch(self, id):
-        data = TodoList.query.get_or_404(id)
-        if data.status is not True:
-            return make_response(jsonify({'error': 'failed'}), 400)
+        data = TodoList.query.get(id)
+        if not data:
+            return make_response(jsonify({'error': 'not found task'}), 404)
         else:
-            data.status = False
-            data.save()
-            return make_response(jsonify({'message': 'success'}), 201)
+            if data.status is not True:
+                return make_response(jsonify({'error': 'failed'}), 400)
+            else:
+                data.status = False
+                data.save()
+                return make_response(jsonify({'message': 'success'}), 200)
 
     def delete(self, id):
         data = TodoList.query.get(id)
         if not data:
-            return make_response(jsonify({'error': 'not found tasks'}), 404)
+            return make_response(jsonify({'error': 'not found task'}), 404)
         else:
             data.delete()
-            return make_response(jsonify({'message': 'success'}), 201)
-
+            return make_response(jsonify({'message': 'success'}), 200)
