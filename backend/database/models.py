@@ -12,7 +12,7 @@ class TodoList(db.Model):
     def __init__(self, name):
         self.name = name
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return f'id: {self.id}, name: {self.name}, status: {self.status}'
 
     def save(self):
@@ -23,7 +23,7 @@ class TodoList(db.Model):
         db.session.delete(self)
         db.session.commit()
 
-    def to_json_data(self)-> dict:
+    def to_json_data(self) -> dict:
         return {
             "id": self.id,
             'name': self.name,
