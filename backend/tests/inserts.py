@@ -1,8 +1,7 @@
 from backend.database.models import db, TodoList
-from backend.wsgi import app
 
 
-def insert_test_data():
+def insert_test_data(app):
     test_data = ['come home', 'cook food', 'to do work']
 
     with app.app_context():
@@ -13,5 +12,3 @@ def insert_test_data():
             print('Successfully inserted test data')
         except Exception as e:
             print(e)
-
-
