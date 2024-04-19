@@ -17,7 +17,7 @@ git clone https://github.com/ruslan2020202/Todo-Rest-Full-Api.git
 3. Launch the application using Docker Compose:
 
 ```
-docker-compose up --build
+docker-compose up -d --build
 ```
 
 5. Open your browser and go to http://localhost:5000 to start using the ToDo application.
