@@ -9,7 +9,7 @@ To run the ToDo application, you'll need Docker and Docker Compose.
 1. First, clone the repository:
 
 ```
-git clone https://github.com/ruslan2020202/ToDO_FULLSTACK_WEBAPP_FLASK-REACT.git
+git clone https://github.com/ruslan2020202/Todo-Rest-Full-Api.git
 ```
 
 2. Create a .env file based on the .env.example and configure it by specifying the necessary environment variables.
