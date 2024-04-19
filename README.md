@@ -36,7 +36,7 @@ The ToDo application is built using the following technologies:
 
 ## Author
 
-The ToDo application was developed by [Your Name or Username](link to GitHub profile or other platform).
+The ToDo application was developed by ruslan2020202
 
 ## License
 
