@@ -1,8 +1,8 @@
 import pytest
-import backend.config as config
-from backend.app import create_app
-from backend.database.models import *
-from backend.tests.inserts import insert_test_data
+import config as config
+from api import create_app
+from database.models import *
+from tests.inserts import insert_test_data
 
 
 def find_id(app):

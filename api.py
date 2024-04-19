@@ -1,11 +1,12 @@
 from flask import Flask
 from flask_cors import CORS
 from flask_migrate import Migrate
-from backend.database.models import *
-from backend.resources.actions import register_actions
-from backend.static.swagger import *
+from database.models import *
+from resources.actions import register_actions
+from static.swagger import *
 from flask_marshmallow import Marshmallow
-from backend.resources.errors import Errors
+from resources.errors import Errors
+from sqlalchemy import create_engine
 
 
 def create_app(config):
@@ -20,4 +21,5 @@ def create_app(config):
     register_actions(app)
     app.register_blueprint(SWAGGER_BLUEPRINT, url_prefix=SWAGGER_URL)
     Errors.register_errors(app)
+    create_engine(app.config['DATABASE_URL'], pool_size=10, max_overflow=20)
     return app

@@ -1,4 +1,4 @@
-from backend.resources.routers import *
+from resources.routers import *
 from flask_restful import Api
 
 

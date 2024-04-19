@@ -1,7 +1,7 @@
 from flask_restful import Resource
-from backend.database.models import TodoList
+from database.models import TodoList
 from flask import jsonify, make_response, request
-from backend.schemas.sheme import todo_schema, todos_schema
+from schemas.sheme import todo_schema, todos_schema
 
 
 class TodoTask(Resource):

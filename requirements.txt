@@ -1,7 +1,9 @@
 alembic==1.13.1
 aniso8601==9.0.1
 blinker==1.7.0
+cffi==1.16.0
 click==8.1.7
+cryptography==42.0.5
 Flask==3.0.2
 Flask-Cors==4.0.0
 flask-marshmallow==1.2.1
@@ -21,6 +23,7 @@ marshmallow-sqlalchemy==1.0.0
 mysql-connector==2.2.9
 packaging==24.0
 pluggy==1.4.0
+pycparser==2.22
 PyMySQL==1.1.0
 pytest==8.1.1
 python-dotenv==1.0.1
