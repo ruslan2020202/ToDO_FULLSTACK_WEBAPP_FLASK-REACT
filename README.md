@@ -9,7 +9,7 @@ To run the ToDo application, you'll need Docker and Docker Compose.
 1. First, clone the repository:
 
 ```
-git clone https://github.com/ruslan2020202/Todo-Rest-Full-Api.git
+git clone https://github.com/ruslan2020202/Todo-Rest-Full-Api
 ```
 
 2. Create a .env file based on the .env.example and configure it by specifying the necessary environment variables.
@@ -20,11 +20,19 @@ git clone https://github.com/ruslan2020202/Todo-Rest-Full-Api.git
 docker compose up -d --build
 ```
 
-5. Open your browser and go to http://localhost:5000 to start using the ToDo application.
+4. Open your browser and go to http://localhost:5000 to start using the ToDo application.
 
+5. To stop the docker compose application
+   
+```
+docker compose up -d --build
+```
 ## Usage
 
-...
+Auto documentation interface
+```
+http://localhost:5000/swagger
+```
 
 ## Technologies
 
