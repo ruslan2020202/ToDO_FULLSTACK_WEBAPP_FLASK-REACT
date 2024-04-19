@@ -25,7 +25,7 @@ docker compose up -d --build
 5. To stop the docker compose application
    
 ```
-docker compose up -d --build
+docker compose down
 ```
 ## Usage
 
