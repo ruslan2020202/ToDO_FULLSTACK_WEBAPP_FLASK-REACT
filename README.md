@@ -17,19 +17,18 @@ git clone https://github.com/ruslan2020202/Todo-Rest-Full-Api
 3. Launch the application using Docker Compose:
 
 ```
-docker compose up -d --build
+docker compose up --build
 ```
-
-4. Open your browser and go to http://localhost:5000 to start using the ToDo application.
-
-5. To stop the docker compose application
-   
+4. After build, stop the containers and start again
 ```
 docker compose down
+docker compose up -d
 ```
+5. Open your browser and go to http://localhost:5000 to start using the ToDo application.
+
 ## Usage
 
-Auto documentation interface
+Documentation interface
 ```
 http://localhost:5000/swagger
 ```
