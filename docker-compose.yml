@@ -11,13 +11,18 @@ services:
     environment:
       - DATABASE_URL=${DATABASE_URL}
     depends_on:
-      - db
+        db:
+          condition: service_healthy
     networks:
       - web
 
   db:
     container_name: db
     image: mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "--password=$${DATABASE_PASSWORD}"]
+      start_period: 2m
+      start_interval: 5s
     env_file:
       - .env
     ports:
