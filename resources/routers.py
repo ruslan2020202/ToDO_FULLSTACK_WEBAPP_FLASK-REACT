@@ -8,7 +8,7 @@ class TodoTask(Resource):
     def get(self):
         data = TodoList.query.all()
         if not data:
-            return make_response(jsonify({'message': 'not found tasks'}), 204)
+            return make_response(jsonify({'message': 'not found tasks'}), 404)
         else:
             return todos_schema.dump(data), 200
 

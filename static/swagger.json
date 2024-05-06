@@ -13,7 +13,7 @@
           "200": {
             "description": "List of tasks"
           },
-          "204": {
+          "404": {
             "description": "Tasks not found"
           }
         }
