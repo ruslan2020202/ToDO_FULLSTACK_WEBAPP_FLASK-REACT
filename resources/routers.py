@@ -49,3 +49,4 @@ class TodoTasks(Resource):
         else:
             data.delete()
             return make_response(jsonify({'message': 'success'}), 200)
+

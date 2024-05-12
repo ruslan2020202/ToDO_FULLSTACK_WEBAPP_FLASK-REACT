@@ -12,10 +12,10 @@ def create_app(config):
     app = Flask(__name__)
     app.config.from_object(config)
     db.init_app(app)
+    Migrate(app, db)
     with app.app_context():
         db.create_all()
     CORS(app)
-    Migrate(app, db)
     Marshmallow(app)
     register_actions(app)
     app.register_blueprint(SWAGGER_BLUEPRINT, url_prefix=SWAGGER_URL)

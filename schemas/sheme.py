@@ -3,7 +3,7 @@ import flask_marshmallow as ma
 
 class TodoListSchema(ma.Schema):
     class Meta:
-        fields = ('id', 'name', 'status')
+        fields = ('id', 'name', 'status', 'time')
 
 
 todo_schema = TodoListSchema(many=False)
