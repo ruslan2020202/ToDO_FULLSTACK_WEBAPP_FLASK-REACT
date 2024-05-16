@@ -1,4 +1,4 @@
-from database.models import db, TodoList
+from database.models import db, TasksModel
 
 
 def insert_test_data(app):

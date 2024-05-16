@@ -19,3 +19,7 @@ class Errors:
         @self.app.errorhandler(400)
         def bad_request(error):
             return make_response(jsonify({'error': 'Bad Request'}), 400)
+
+        @self.app.errorhandler(405)
+        def method_not_allowed(error):
+            return make_response(jsonify({'error': 'Method Not Allowed'}), 405)

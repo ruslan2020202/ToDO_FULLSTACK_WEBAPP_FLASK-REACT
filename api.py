@@ -15,6 +15,7 @@ def create_app(config):
     db.init_app(app)
     Migrate(app, db)
     with app.app_context():
+        # db.drop_all()
         db.create_all()
     CORS(app)
     Marshmallow(app)

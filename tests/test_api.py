@@ -7,7 +7,7 @@ from tests.inserts import insert_test_data
 
 def find_id(app):
     with app.app_context():
-        id_task = TodoList.query.first().id
+        id_task = TasksModel.query.first().id
         return id_task
 
 
