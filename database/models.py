@@ -4,7 +4,17 @@ from datetime import datetime
 db = SQLAlchemy()
 
 
-class TodoList(db.Model):
+class Base:
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
+
+
+class TodoList(db.Model, Base):
     __tablename__ = 'Tasks'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(256), nullable=False)
@@ -16,11 +26,3 @@ class TodoList(db.Model):
 
     def __repr__(self) -> str:
         return f'id: {self.id}, name: {self.name}, status: {self.status}, time: {self.time}'
-
-    def save(self):
-        db.session.add(self)
-        db.session.commit()
-
-    def delete(self):
-        db.session.delete(self)
-        db.session.commit()

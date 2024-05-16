@@ -38,5 +38,4 @@ networks:
 
 volumes:
   .data:
-    driver:
-      pymysql
+
