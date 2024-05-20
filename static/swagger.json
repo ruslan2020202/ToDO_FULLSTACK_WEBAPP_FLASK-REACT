@@ -28,7 +28,10 @@
                     "type": "integer"
                   }
                 },
-                "required": ["name", "list_id"]
+                "required": [
+                  "name",
+                  "list_id"
+                ]
               }
             }
           }
@@ -211,7 +214,10 @@
                     "type": "string"
                   }
                 },
-                "required": ["name", "description"]
+                "required": [
+                  "name",
+                  "description"
+                ]
               }
             }
           }
@@ -359,9 +365,18 @@
           },
           "time": {
             "type": "string"
+          },
+          "list_id": {
+            "type": "integer"
           }
         },
-        "required": ["id", "name", "status", "time"]
+        "required": [
+          "id",
+          "name",
+          "status",
+          "time",
+          "list_id"
+        ]
       },
       "List": {
         "type": "object",
@@ -376,7 +391,11 @@
             "type": "string"
           }
         },
-        "required": ["id", "name", "description"]
+        "required": [
+          "id",
+          "name",
+          "description"
+        ]
       }
     }
   }

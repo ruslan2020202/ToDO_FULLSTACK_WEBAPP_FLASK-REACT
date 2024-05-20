@@ -19,12 +19,7 @@ git clone https://github.com/ruslan2020202/Todo-Rest-Full-Api
 ```
 docker compose up --build
 ```
-4. After build, stop the containers and start again
-```
-docker compose down
-docker compose up -d
-```
-5. Open your browser and go to http://localhost:5000 to start using the ToDo application.
+4. Open your browser and go to http://localhost:5000 to start using the ToDo application.
 
 ## Usage
 

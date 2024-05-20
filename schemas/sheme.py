@@ -20,5 +20,10 @@ class TodoListSchema(SchemaBase, ma.Schema):
         fields = ('id', 'name', 'description')
 
 
+class UserSchema(SchemaBase, ma.Schema):
+    class Meta:
+        fields = ('id', 'username', 'email', 'password')
+
+
 todo_schema = TodoTaskSchema(many=False)
 todos_schema = TodoTaskSchema(many=True)

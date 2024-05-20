@@ -2,11 +2,13 @@ from flask import Flask
 from flask_cors import CORS
 from flask_migrate import Migrate
 from flask_marshmallow import Marshmallow
+from flask_jwt_extended import JWTManager
 
 from database.models import *
 from resources.actions import register_actions
 from static.swagger import *
 from resources.errors import Errors
+from utils.inserts import insert_test_data
 
 
 def create_app(config):
@@ -15,8 +17,10 @@ def create_app(config):
     db.init_app(app)
     Migrate(app, db)
     with app.app_context():
-        # db.drop_all()
+        db.drop_all()
         db.create_all()
+    insert_test_data(app)
+    JWTManager(app)
     CORS(app)
     Marshmallow(app)
     register_actions(app)
