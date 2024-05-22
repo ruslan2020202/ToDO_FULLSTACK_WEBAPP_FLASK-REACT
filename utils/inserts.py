@@ -1,28 +1,43 @@
 from database.models import TasksModel, ListsModel, UsersModel
 
-from faker import Faker
 
-faker = Faker()
+class TestData:
 
+    def __init__(self, app):
+        self.app = app
 
-def insert_test_data(app):
-    tasks = ['cook food', 'to do work', 'call a girl']
-    test_data = {
-        'users': [(faker.name(), faker.email(), faker.password()) for _ in range(3)],
-        'task_lists': [(f'list{i}', faker.text(25), i) for i in range(1, 4)],
-        'tasks': [(tasks[i], i+1) for i in range(3)]
+    test_user = {
+        'username': 'user',
+        'email': 'test@gmail.com',
+        'password': '123'
     }
 
-    with app.app_context():
-        for i in test_data.get('users'):
-            UsersModel(i[0], i[1], i[2]).save()
-        for i in test_data.get('task_lists'):
-            ListsModel(i[0], i[1], int(i[2])).save()
-        for i in test_data.get('tasks'):
-            TasksModel(i[0], int(i[1])).save()
+    def get_first_id_list(self) -> int:
+        with self.app.app_context():
+            return ListsModel.query.first().id
 
+    def get_first_id_task(self) -> int:
+        with self.app.app_context():
+            return TasksModel.query.first().id
 
+    @property
+    def tasks_list(self) -> dict[str, str | int]:
+        with self.app.app_context():
+            tasks_list = {
+                'name': 'test list1',
+                'description': 'test desc',
+                'user_id': UsersModel.query.first().id
+            }
+            return tasks_list
 
+    tasks = ['cook food', 'to do work', 'call a girl']
+
+    def insert_test_data(self) -> None:
+        with self.app.app_context():
+            UsersModel(**self.test_user).save()
+            ListsModel(**self.tasks_list).save()
+            for task in self.tasks:
+                TasksModel(task, ListsModel.query.first().id).save()
 
 
 

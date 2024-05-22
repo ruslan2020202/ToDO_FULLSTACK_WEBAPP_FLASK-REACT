@@ -1,401 +1,336 @@
 {
-  "openapi": "3.0.0",
+  "swagger": "2.0",
   "info": {
-    "version": "1.0.0",
-    "title": "Todo API",
-    "description": "API for managing tasks and lists"
+    "title": "Todo List API",
+    "description": "API for managing todo lists and tasks",
+    "version": "1.0.0"
   },
-  "servers": [
+  "basePath": "/api/v1",
+  "tags": [
     {
-      "url": "http://localhost:5000/api/v1"
+      "name": "tasks",
+      "description": "Operations related to tasks"
+    },
+    {
+      "name": "lists",
+      "description": "Operations related to lists"
+    },
+    {
+      "name": "authentication",
+      "description": "Operations related to user authentication"
     }
   ],
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "securityDefinitions": {
+    "Bearer": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header",
+      "description": "Enter your bearer token in the format **Bearer <token>**"
+    }
+  },
   "paths": {
     "/task": {
       "post": {
+        "tags": [
+          "tasks"
+        ],
         "summary": "Create a new task",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "type": "string"
-                  },
-                  "list_id": {
-                    "type": "integer"
-                  }
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
                 },
-                "required": [
-                  "name",
-                  "list_id"
-                ]
-              }
+                "list_id": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "name",
+                "list_id"
+              ]
             }
           }
-        },
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "responses": {
           "201": {
-            "description": "Created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "message": {
-                      "type": "string"
-                    }
-                  }
-                }
-              }
-            }
+            "description": "Task created successfully"
           },
           "400": {
-            "description": "Bad Request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "error": {
-                      "type": "string"
-                    }
-                  }
-                }
-              }
-            }
+            "description": "Failed to create task"
           }
         }
       }
     },
     "/task/{id}": {
       "patch": {
-        "summary": "Mark a task as completed",
+        "tags": [
+          "tasks"
+        ],
+        "summary": "Change task status",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "schema": {
-              "type": "integer"
-            },
-            "description": "ID of the task"
+            "type": "integer"
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
           }
         ],
         "responses": {
           "200": {
-            "description": "Success",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "message": {
-                      "type": "string"
-                    }
-                  }
-                }
-              }
-            }
+            "description": "Task status changed successfully"
+          },
+          "400": {
+            "description": "Failed to change task status"
           },
           "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "error": {
-                      "type": "string"
-                    }
-                  }
-                }
-              }
-            }
+            "description": "Task not found"
           }
         }
       },
       "delete": {
+        "tags": [
+          "tasks"
+        ],
         "summary": "Delete a task",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "schema": {
-              "type": "integer"
-            },
-            "description": "ID of the task"
+            "type": "integer"
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
           }
         ],
         "responses": {
           "200": {
-            "description": "Success",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "message": {
-                      "type": "string"
-                    }
-                  }
-                }
-              }
-            }
+            "description": "Task deleted successfully"
           },
           "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "error": {
-                      "type": "string"
-                    }
-                  }
-                }
-              }
-            }
+            "description": "Task not found"
           }
         }
       }
     },
     "/lists": {
       "get": {
+        "tags": [
+          "lists"
+        ],
         "summary": "Get all lists",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "responses": {
           "200": {
-            "description": "Success",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/List"
-                  }
-                }
-              }
-            }
+            "description": "Lists retrieved successfully"
           },
           "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "error": {
-                      "type": "string"
-                    }
-                  }
-                }
-              }
-            }
+            "description": "Lists not found"
           }
         }
       },
       "post": {
+        "tags": [
+          "lists"
+        ],
         "summary": "Create a new list",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "type": "string"
-                  },
-                  "description": {
-                    "type": "string"
-                  }
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
                 },
-                "required": [
-                  "name",
-                  "description"
-                ]
-              }
+                "description": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "name",
+                "description"
+              ]
             }
           }
-        },
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "responses": {
           "201": {
-            "description": "Created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "message": {
-                      "type": "string"
-                    }
-                  }
-                }
-              }
-            }
+            "description": "List created successfully"
           },
           "400": {
-            "description": "Bad Request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "error": {
-                      "type": "string"
-                    }
-                  }
-                }
-              }
-            }
+            "description": "Failed to create list"
           }
         }
       }
     },
     "/list/{id}": {
       "get": {
-        "summary": "Get tasks in a list",
+        "tags": [
+          "lists"
+        ],
+        "summary": "Get all tasks from a list",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "schema": {
-              "type": "integer"
-            },
-            "description": "ID of the list"
+            "type": "integer"
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
           }
         ],
         "responses": {
           "200": {
-            "description": "Success",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Task"
-                  }
-                }
-              }
-            }
+            "description": "Tasks retrieved successfully"
           },
           "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "message": {
-                      "type": "string"
-                    }
-                  }
-                }
-              }
-            }
+            "description": "Tasks not found in list"
           }
         }
       },
       "delete": {
+        "tags": [
+          "lists"
+        ],
         "summary": "Delete a list",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "schema": {
-              "type": "integer"
-            },
-            "description": "ID of the list"
+            "type": "integer"
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
           }
         ],
         "responses": {
           "200": {
-            "description": "Success",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "message": {
-                      "type": "string"
-                    }
-                  }
-                }
-              }
-            }
+            "description": "List deleted successfully"
           },
           "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "error": {
-                      "type": "string"
-                    }
-                  }
-                }
-              }
-            }
+            "description": "List not found"
           }
         }
       }
-    }
-  },
-  "components": {
-    "schemas": {
-      "Task": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer"
-          },
-          "name": {
-            "type": "string"
-          },
-          "status": {
-            "type": "boolean"
-          },
-          "time": {
-            "type": "string"
-          },
-          "list_id": {
-            "type": "integer"
+    },
+    "/auth/signup": {
+      "post": {
+        "tags": [
+          "authentication"
+        ],
+        "summary": "User sign up",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "username": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "username",
+                "email",
+                "password"
+              ]
+            }
           }
-        },
-        "required": [
-          "id",
-          "name",
-          "status",
-          "time",
-          "list_id"
-        ]
-      },
-      "List": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer"
+        ],
+        "responses": {
+          "201": {
+            "description": "User signed up successfully"
           },
-          "name": {
-            "type": "string"
-          },
-          "description": {
-            "type": "string"
+          "409": {
+            "description": "User already exists"
           }
-        },
-        "required": [
-          "id",
-          "name",
-          "description"
-        ]
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "tags": [
+          "authentication"
+        ],
+        "summary": "User login",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "email",
+                "password"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User logged in successfully"
+          },
+          "401": {
+            "description": "Not correct data provided"
+          }
+        }
       }
     }
   }

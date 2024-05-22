@@ -1,9 +1,9 @@
 from flask_restful import Resource
-from database.models import UsersModel
 from flask import jsonify, make_response, request
-from schemas.sheme import *
 from werkzeug.security import check_password_hash
-from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
+from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity, get_jwt
+
+from database.models import UsersModel
 
 
 class SignUp(Resource):
@@ -28,17 +28,18 @@ class AuthLogin(Resource):
             email = request.json.get('email')
             password = request.json.get('password')
             user = UsersModel.find_by_email(email)
-            # if not user or check_password_hash(user.password, password):
-            if not user or user.password != password:
+            if not user or not check_password_hash(user.password, password):
                 return make_response(jsonify({'message': 'not correct data'}), 401)
             else:
                 token = create_access_token(identity=user.id)
-                return make_response(jsonify({'message': 'success', 'user': token}), 200)
+                return make_response(jsonify({'message': 'success', 'token': token}), 200)
         except Exception as e:
-            return make_response(jsonify({'message': str(e)}))
+            return jsonify({'message': str(e)})
 
 
-class AuthLogout(Resource):
-    @jwt_required()
-    def post(self):
-        pass
+
+
+
+
+
+

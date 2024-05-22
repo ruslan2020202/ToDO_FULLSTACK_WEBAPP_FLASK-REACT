@@ -1,26 +1,25 @@
 import os
 from dotenv import load_dotenv
+import uuid
 
 load_dotenv()
 
 
 class Config:
-    SECRET_KEY = os.environ.get('SECRET_KEY')
+    SECRET_KEY = uuid.uuid4().hex
     SQLALCHEMY_DATABASE_URI = f"mysql+pymysql://root:{os.environ.get('DATABASE_PASSWORD')}@{os.environ.get('DATABASE_HOST_TEST')}:3306/{os.environ.get('DATABASE_NAME_TEST')}"
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    DEBUG = True
     FLASK_APP = os.environ.get('FLASK_APP')
+    PROPAGATE_EXCEPTIONS = True
 
 
 class DevelopmentConfig(Config):
-    pass
+    DEBUG = True
 
 
 class TestingConfig(Config):
-    pass
+    TESTING = True
 
 
 class ProductionConfig(Config):
-    DEBUG = False
     SQLALCHEMY_DATABASE_URI = f"mysql+pymysql://root:{os.environ.get('DATABASE_PASSWORD')}@{os.environ.get('DATABASE_HOST')}:3306/{os.environ.get('DATABASE_NAME')}"
-

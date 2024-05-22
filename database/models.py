@@ -1,4 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
+
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -22,13 +23,10 @@ class UsersModel(db.Model, Base):
     email = db.Column(db.String(256), nullable=False, unique=True)
     password = db.Column(db.String(256), nullable=False)
 
-    # token = db.Column(db.String(256), unique=True)
-
     def __init__(self, username: str, email: str, password: str) -> None:
         self.username = username
         self.email = email
-        # self.password = generate_password_hash(password)
-        self.password = password
+        self.password = generate_password_hash(password)
 
     def __repr__(self) -> str:
         return f'id {self.id} username {self.username} email {self.email} password {self.password}'

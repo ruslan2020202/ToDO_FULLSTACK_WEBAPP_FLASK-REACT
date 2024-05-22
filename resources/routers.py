@@ -1,8 +1,9 @@
 from flask_restful import Resource
-from database.models import TasksModel, ListsModel
 from flask import jsonify, make_response, request
-from schemas.sheme import *
 from flask_jwt_extended import get_jwt_identity, jwt_required
+
+from database.models import TasksModel, ListsModel
+from schemas.sheme import *
 
 
 class TodoTasks(Resource):
@@ -51,16 +52,20 @@ class TodoTask(Resource):
 
 
 class TodoLists(Resource):
+
     @jwt_required()
     def get(self):
         """
         get all lists
         """
-        data = ListsModel.query.filter_by(user_id=get_jwt_identity()).all()
-        if not data:
-            return make_response(jsonify({'error': 'not found lists'}), 404)
-        else:
-            return TodoListSchema.schema_many(data), 200
+        try:
+            data = ListsModel.query.filter_by(user_id=get_jwt_identity()).all()
+            if not data:
+                return make_response(jsonify({'error': 'not found lists'}), 404)
+            else:
+                return TodoListSchema.schema_many(data), 200
+        except Exception as e:
+            return make_response(jsonify({'error': str(e)}), 400)
 
     @jwt_required()
     def post(self):
@@ -100,8 +105,7 @@ class TodoList(Resource):
             data.delete()
             return make_response(jsonify({'message': 'success'}), 200)
 
-
 class UserInfo(Resource):
-    @jwt_required()
+    @jwt_required
     def get(self, id):
         pass

@@ -8,7 +8,7 @@ from database.models import *
 from resources.actions import register_actions
 from static.swagger import *
 from resources.errors import Errors
-from utils.inserts import insert_test_data
+from utils.inserts import TestData
 
 
 def create_app(config):
@@ -19,7 +19,7 @@ def create_app(config):
     with app.app_context():
         db.drop_all()
         db.create_all()
-    insert_test_data(app)
+    TestData(app).insert_test_data()
     JWTManager(app)
     CORS(app)
     Marshmallow(app)
