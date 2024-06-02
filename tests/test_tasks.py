@@ -16,6 +16,7 @@ def test_change_task(client, auth, app):
     response = client.patch(f'/api/v1/task/{id}', headers={'Authorization': f'Bearer {auth}'})
     assert response.status_code == 200
 
+
 def test_delete_task(client, auth, app):
     id = TestData(app).get_first_id_task()
     response = client.delete(f'/api/v1/task/{id}', headers={'Authorization': f'Bearer {auth}'})

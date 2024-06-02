@@ -19,7 +19,7 @@ class SignUp(Resource):
             else:
                 return make_response(jsonify({'message': 'user already exists'}), 409)
         except Exception as e:
-            make_response(jsonify({'message': str(e)}))
+            return make_response(jsonify({'message': str(e)}))
 
 
 class AuthLogin(Resource):
@@ -34,12 +34,12 @@ class AuthLogin(Resource):
                 token = create_access_token(identity=user.id)
                 return make_response(jsonify({'message': 'success', 'token': token}), 200)
         except Exception as e:
-            return jsonify({'message': str(e)})
+            return make_response(jsonify({'message': str(e)}))
 
 
-
-
-
-
-
-
+class RefreshToken(Resource):
+    @jwt_required()
+    def post(self):
+        user = get_jwt_identity()
+        token = create_access_token(identity=user)
+        return make_response(jsonify({'message': 'success', 'access_token': token}), 200)

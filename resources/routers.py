@@ -2,7 +2,7 @@ from flask_restful import Resource
 from flask import jsonify, make_response, request
 from flask_jwt_extended import get_jwt_identity, jwt_required
 
-from database.models import TasksModel, ListsModel
+from database.models import TasksModel, ListsModel, UsersModel
 from schemas.sheme import *
 
 
@@ -105,7 +105,11 @@ class TodoList(Resource):
             data.delete()
             return make_response(jsonify({'message': 'success'}), 200)
 
+
 class UserInfo(Resource):
-    @jwt_required
-    def get(self, id):
-        pass
+    @jwt_required()
+    def get(self):
+        data = UsersModel.query.get(get_jwt_identity())
+        return UserSchema.schema_many(data)
+
+
